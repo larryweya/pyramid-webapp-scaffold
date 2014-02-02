@@ -1,3 +1,6 @@
+from pyramid.security import (
+    Allow,
+    Authenticated)
 from sqlalchemy import (
     Column,
     Index,
@@ -32,5 +35,9 @@ Index('my_index', MyModel.name, unique=True, mysql_length=255)
 
 
 class RootFactory(object):
+    __acl__ = [
+        (Allow, Authenticated, 'authenticated'),
+    ]
+
     def __init__(self, request):
         self.request = request

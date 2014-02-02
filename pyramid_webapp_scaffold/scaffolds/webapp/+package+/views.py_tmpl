@@ -13,3 +13,8 @@ from .models import (
 def home(request):
     return {}
 
+@view_config(route_name='private', renderer='templates/home.jinja2',
+             permission="authenticated")
+def private(request):
+    return Response("Private view")
+
