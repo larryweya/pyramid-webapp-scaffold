@@ -2,6 +2,7 @@ import unittest
 import transaction
 
 from webob.multidict import MultiDict
+from pyramid.registry import Registry
 from pyramid import testing
 from pyramid.paster import (
     get_appsettings
@@ -22,7 +23,9 @@ engine = engine_from_config(settings, 'sqlalchemy.')
 
 class TestBase(unittest.TestCase):
     def setUp(self):
-        self.config = testing.setUp()
+        registry = Registry()
+        registry.settings = settings
+        self.config = testing.setUp(registry=registry)
         # setup db
         DBSession.configure(bind=engine)
         Base.metadata.bind = engine
