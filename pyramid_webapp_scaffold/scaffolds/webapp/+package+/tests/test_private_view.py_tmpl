@@ -1,6 +1,6 @@
 from pyramid import testing
 
-from {{package}}.tests import (
+from {{package}}.tests.test_base import (
     TestBase,
     IntegrationTestBase,
     FunctionalTestBase)
