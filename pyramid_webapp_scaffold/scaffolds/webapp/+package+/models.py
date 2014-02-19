@@ -1,6 +1,8 @@
 from pyramid.security import (
     Allow,
-    Authenticated)
+    Authenticated,
+    ALL_PERMISSIONS
+)
 from sqlalchemy import (
     Column,
     Index,
@@ -17,8 +19,29 @@ from sqlalchemy.orm import (
 
 from zope.sqlalchemy import ZopeTransactionExtension
 
+
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 Base = declarative_base()
+
+
+class RootFactory(object):
+    __acl__ = [
+        (Allow, 'g:su', ALL_PERMISSIONS),
+        (Allow, Authenticated, 'authenticated')
+    ]
+
+    def __init__(self, request):
+        self.request = request
+
+
+class BaseModelFactory(object):
+    def __init__(self, request):
+        self.request = request
+
+    @property
+    def __parent__(self):
+        # set root factory as parent to inherit root's acl
+        return RootFactory(self.request)
 
 
 class MyModel(Base):
@@ -32,12 +55,3 @@ class MyModel(Base):
         self.value = value
 
 Index('my_index', MyModel.name, unique=True, mysql_length=255)
-
-
-class RootFactory(object):
-    __acl__ = [
-        (Allow, Authenticated, 'authenticated'),
-    ]
-
-    def __init__(self, request):
-        self.request = request
