@@ -20,6 +20,8 @@ requires = [
     'pyramid_jinja2',
     'alembic',
     'fabric',
+    # TODO: add pyramid_exc_logger
+    'passlib'
 ]
 
 setup(name='{{project}}',

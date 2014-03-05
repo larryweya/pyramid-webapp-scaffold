@@ -18,6 +18,11 @@ sqlalchemy.url = sqlite:///%(here)s/{{project}}.sqlite
 
 secret_key = {{random_string}}
 
+[passlib]
+schemes = pbkdf2_sha512
+default = pbkdf2_sha512
+pbkdf2_sha512__default_rounds = 8000
+
 [server:main]
 use = egg:waitress#main
 host = 0.0.0.0

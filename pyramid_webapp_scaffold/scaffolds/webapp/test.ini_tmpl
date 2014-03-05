@@ -23,6 +23,11 @@ sqlalchemy.url = sqlite:///%(here)s/{{project}}_test.sqlite
 
 secret_key = s0m3s3cretkey
 
+[passlib]
+schemes = pbkdf2_sha512
+default = pbkdf2_sha512
+pbkdf2_sha512__default_rounds = 8000
+
 ###
 # wsgi server configuration
 ###

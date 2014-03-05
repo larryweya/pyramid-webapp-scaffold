@@ -1,3 +1,8 @@
+from passlib.context import CryptContext
+
+
+pwd_context = CryptContext()
+
 USERS = {
     1: 'admin',
     2: 'user1'

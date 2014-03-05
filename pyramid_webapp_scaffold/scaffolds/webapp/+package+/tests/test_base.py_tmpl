@@ -17,7 +17,8 @@ from {{package}}.models import (
     Base)
 
 
-settings = get_appsettings('test.ini')
+SETTINGS_FILE = 'test.ini
+settings = get_appsettings(SETTINGS_FILE)
 engine = engine_from_config(settings, 'sqlalchemy.')
 
 
@@ -54,7 +55,13 @@ class FunctionalTestBase(IntegrationTestBase):
 
     def setUp(self):
         super(FunctionalTestBase, self).setUp()
-        app = main({}, **settings)
+        current_dir = os.getcwd()
+        app = main(
+            {
+                '__file__': os.path.join(current_dir, SETTINGS_FILE),
+                'here': current_dir
+            },
+            **settings)
         self.testapp = TestApp(app)
         self.request = testing.DummyRequest()
         self.request.environ = {
