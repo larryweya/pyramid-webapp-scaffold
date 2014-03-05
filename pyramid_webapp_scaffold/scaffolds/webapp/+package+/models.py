@@ -27,7 +27,8 @@ Base = declarative_base()
 class RootFactory(object):
     __acl__ = [
         (Allow, 'g:su', ALL_PERMISSIONS),
-        (Allow, Authenticated, 'authenticated')
+        (Allow, Authenticated, 'authenticated'),
+        (Allow, 'g:supervisors', 'supervise'),
     ]
 
     def __init__(self, request):
