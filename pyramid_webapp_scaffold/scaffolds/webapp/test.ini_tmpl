@@ -23,6 +23,9 @@ sqlalchemy.url = sqlite:///%(here)s/{{project}}_test.sqlite
 
 secret_key = s0m3s3cretkey
 
+# jinja2 translation domain
+jinja2.i18n.domain = {{project}}
+
 [passlib]
 schemes = pbkdf2_sha512
 default = pbkdf2_sha512

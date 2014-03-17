@@ -21,7 +21,9 @@ requires = [
     'alembic',
     'fabric',
     # TODO: add pyramid_exc_logger
-    'passlib'
+    'passlib',
+    'Babel',
+    'lingua'
 ]
 
 setup(name='{{project}}',
@@ -43,6 +45,11 @@ setup(name='{{project}}',
       zip_safe=False,
       test_suite='{{package}}',
       install_requires=requires,
+      message_extractors={
+          '{{package}}': [
+              ('**.py', 'lingua_python', None),
+              ('**.jinja2', 'jinja2', None)]
+      },
       entry_points="""\
       [paste.app_factory]
       main = {{package}}:main
