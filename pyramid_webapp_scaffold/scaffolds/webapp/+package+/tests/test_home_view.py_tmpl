@@ -1,10 +1,9 @@
 from pyramid import testing
 
 from {{package}}.tests.test_base import (
-    TestBase,
     IntegrationTestBase,
     FunctionalTestBase)
-from {{package}}.views import home
+from {{package}}.views.default import home
 
 
 class TestHomeView(IntegrationTestBase):

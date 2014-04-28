@@ -3,12 +3,6 @@ from pyramid.security import (
     Authenticated,
     ALL_PERMISSIONS
 )
-from sqlalchemy import (
-    Column,
-    Index,
-    Integer,
-    Text,
-    )
 
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -43,16 +37,3 @@ class BaseModelFactory(object):
     def __parent__(self):
         # set root factory as parent to inherit root's acl
         return RootFactory(self.request)
-
-
-class MyModel(Base):
-    __tablename__ = 'models'
-    id = Column(Integer, primary_key=True)
-    name = Column(Text)
-    value = Column(Integer)
-
-    def __init__(self, name, value):
-        self.name = name
-        self.value = value
-
-Index('my_index', MyModel.name, unique=True, mysql_length=255)

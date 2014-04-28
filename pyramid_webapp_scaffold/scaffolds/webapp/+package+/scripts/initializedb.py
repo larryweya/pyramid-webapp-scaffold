@@ -9,11 +9,11 @@ from pyramid.paster import (
     setup_logging,
     )
 
-from ..models import (
+from ..models.base import (
     DBSession,
-    MyModel,
     Base,
     )
+from ..models.my_model import MyModel
 
 
 def usage(argv):
