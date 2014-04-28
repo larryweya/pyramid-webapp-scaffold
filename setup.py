@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
 
-version = '0.1.1'
+version = '0.2.0'
 requires = [
-    'pyramid==1.4.5'
+    'pyramid>=1.5'
 ]
 
 setup(name='pyramid_webapp_scaffold',

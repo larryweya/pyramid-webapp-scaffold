@@ -30,6 +30,9 @@ def main(global_config, **settings):
 
     config.set_authorization_policy(ACLAuthorizationPolicy())
 
+    logging.config.fileConfig(
+        global_config['__file__'], disable_existing_loggers=False)
+
     # configure password context
     pwd_context.load_path(global_config['__file__'])
 

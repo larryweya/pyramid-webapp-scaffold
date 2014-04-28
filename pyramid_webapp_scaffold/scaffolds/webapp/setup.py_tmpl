@@ -18,9 +18,9 @@ requires = [
     'psycopg2',
     'webtest',
     'pyramid_jinja2',
+    'pyramid_exclog',
     'alembic',
     'fabric',
-    # TODO: add pyramid_exc_logger
     'passlib',
     'Babel',
     'lingua'

@@ -13,13 +13,16 @@ pyramid.debug_routematch = false
 pyramid.default_locale_name = en
 pyramid.includes =
     pyramid_tm
+    pyramid_exclog
+
+exclog.extra_info = true
 
 sqlalchemy.url = sqlite:///%(here)s/{{project}}.sqlite
 
 secret_key = {{random_string}}
 
 # jinja2 translation domain
-jinja2.i18n.domain = {{project}}
+jinja2.i18n.domain = {{ project }}
 
 [passlib]
 schemes = pbkdf2_sha512
@@ -37,7 +40,7 @@ port = 6543
 ###
 
 [loggers]
-keys = root, {{package_logger}}, sqlalchemy
+keys = root, {{package_logger}}, sqlalchemy, exc_logger
 
 [handlers]
 keys = console
@@ -62,10 +65,21 @@ qualname = sqlalchemy.engine
 # "level = DEBUG" logs SQL queries and results.
 # "level = WARN" logs neither.  (Recommended for production systems.)
 
+[logger_exc_logger]
+level = ERROR
+handlers = smtp
+qualname = exc_logger
+
 [handler_console]
 class = StreamHandler
 args = (sys.stderr,)
 level = NOTSET
+formatter = generic
+
+[handler_smtp]
+class = handlers.SMTPHandler
+args = (('localhost', 25), 'noreply@localhost', ['tech@ona.io'], '{{ project }} Exception', (), ())
+level = ERROR
 formatter = generic
 
 [formatter_generic]
