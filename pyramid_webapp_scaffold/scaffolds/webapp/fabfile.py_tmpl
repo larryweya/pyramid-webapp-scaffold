@@ -3,12 +3,12 @@ from fabric.api import local, cd, run, settings, env, prefix
 
 DEPLOYMENTS = {
     'prod': {
-        'virtual_env': '/home/ubuntu/.virtualenvs/{{project}}_prod',
+        'virtual_env': '/home/ubuntu/.virtualenvs/{{ package }}_prod',
         'project_dir': '/home/ubuntu/{{project}}',
         'alembic_section': 'production'
     },
     'dev': {
-        'virtual_env': '/home/vagrant/.virtualenvs/{{project}}_dev',
+        'virtual_env': '/home/vagrant/.virtualenvs/{{ package }}_dev',
         'project_dir': '/home/vagrant/{{project}}'
     }
 }
@@ -26,6 +26,7 @@ def deploy(deployment="prod", branch="master"):
         # run migrations
         with prefix(virtual_env_command):
             run("python setup.py test -q")
+            run("pip install -r requirements.txt")
             run("python setup.py install")
             run("alembic -n {0} upgrade head".format(
                 env.get('alembic_section', 'alembic')))
